@@ -63,6 +63,25 @@ func (b *board) numNeighbours(x, y int) int {
 
 func (b *board) step() {
 	newB := newBoard(b.w, b.h)
+
+	// iterate through each position on board
+	for y := 0; y < b.h; y++ {
+		for x := 0; x < b.w; x++ {
+			// if cell has 2 neighbours then leave as is
+			// otherwise set cell to live if it has 3 neighbours
+			z := b.numNeighbours(x, y)
+			switch z {
+			case 2:
+				newB.b[y][x] = b.b[y][x]
+			case 3:
+				newB.b[y][x] = true
+			default:
+				newB.b[y][x] = false
+			}
+		}
+	}
+
+	b.b = newB.b
 }
 
 func (b *board) show() {
@@ -93,7 +112,7 @@ func main() {
 	rand.Seed(time.Now().UnixNano())
 
 	// create board, initialise to random values and display
-	field := newBoard(30, 10)
+	field := newBoard(40, 25)
 	field.initialisePositions()
 	field.show()
 
