@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"math/rand"
+	"os"
 	"os/exec"
 	"time"
 )
@@ -33,7 +34,9 @@ func (b *board) initialiseBoard() {
 }
 
 func showBoard(b board) {
-	err := exec.Command("cmd", "/c", "cls").Run()
+	cmd := exec.Command("cmd", "/c", "cls")
+	cmd.Stdout = os.Stdout
+	err := cmd.Run()
 
 	if err != nil {
 		panic(err)
