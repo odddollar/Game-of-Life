@@ -44,6 +44,27 @@ func (b *board) isAlive(x, y int) bool {
 	return b.b[y][x]
 }
 
+func (b *board) numNeighbours(x, y int) int {
+	neighbours := 0
+
+	// iterate through all spaces around x, y co-ordinates
+	for i := -1; i <= 1; i++ {
+		for j := -1; j <= 1; j++ {
+			// if current iteration position isn't x, y and position is alive (taking in account wrapping)
+			// then increment neighbours
+			if (i != 0 || j != 0) && b.isAlive(x+i, y+j) {
+				neighbours++
+			}
+		}
+	}
+
+	return neighbours
+}
+
+func (b *board) step() {
+	newB := newBoard(b.w, b.h)
+}
+
 func (b *board) show() {
 	// clear screen
 	cmd := exec.Command("cmd", "/c", "cls")
@@ -71,17 +92,18 @@ func main() {
 	// set random seed
 	rand.Seed(time.Now().UnixNano())
 
-	// create board and initialise to random values
+	// create board, initialise to random values and display
 	field := newBoard(30, 10)
 	field.initialisePositions()
+	field.show()
 
 	// main loop
+	// steps forward generation
 	// displays board
-	// steps generation forward
 	// waits period before running again
 	for {
+		field.step()
 		field.show()
-		// step
 		time.Sleep(time.Second / 2)
 	}
 }
