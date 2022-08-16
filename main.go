@@ -33,6 +33,14 @@ func (b *board) initialiseBoard() {
 	}
 }
 
+func (b *board) isAlive(x, y int) bool {
+	x += b.w
+	x %= b.w
+	y += b.h
+	y %= b.h
+	return b.b[y][x]
+}
+
 func showBoard(b board) {
 	cmd := exec.Command("cmd", "/c", "cls")
 	cmd.Stdout = os.Stdout
@@ -58,8 +66,11 @@ func main() {
 	rand.Seed(time.Now().UnixNano())
 
 	field := newBoard(30, 10)
-
 	field.initialiseBoard()
 
-	showBoard(field)
+	for {
+		showBoard(field)
+		// step
+		time.Sleep(time.Second / 2)
+	}
 }
