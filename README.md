@@ -8,3 +8,10 @@ The game creates a grid of cells that are randomly initialised to either **Alive
 2. If **Dead** cell has exactly 3 living neighbours it becomes **Alive**
 3. If an **Alive** cell has 2 or 3 living neighbours it continues living in the next generation
 
+Can be built to an executable with:
+```
+git clone https://github.com/odddollar/Game-of-Life.git
+cd Game-of-Life
+go build Game-of-Life
+```
+
